@@ -1,4 +1,7 @@
 import CommandDesignPattern.*;
+import ObjectAdapterDesignPattern.AnalyticsTool;
+import ObjectAdapterDesignPattern.JsonAnalyticsTool;
+import ObjectAdapterDesignPattern.XMLtoJsonAdapter;
 import ObserverDesign.Customer;
 import ObserverDesign.DeliveryPartner;
 import ObserverDesign.Observer;
@@ -10,29 +13,15 @@ import StrategyPlusFactorDesignPattern.PaymentProcessor;
 public class Main {
     public static void main(String[] args) {
 
-//        NetworkManager networkManager1 = NetworkManager.getInstance();
-//        NetworkManager networkManager2 = NetworkManager.getInstance();
-//
-//        if(networkManager1 == networkManager2) {
-//            System.out.println("Both the instances are same");
-//            System.out.println(Thread.currentThread().getName());
-//        }
-//        else {
-//            System.out.println("Singleton has failed");
-//        }
+        String xmlData = "data";
+        // Without the adapter
+        JsonAnalyticsTool jsonAnalyticsTool = new JsonAnalyticsTool();
+        jsonAnalyticsTool.setJsonData(xmlData);
+        jsonAnalyticsTool.analyse();
 
-        PaymentProcessor paymentProcessor = new PaymentProcessor();
+        System.out.println("-------------------------------------------");
 
-        // Crypto Payment
-        paymentProcessor.setPaymentStrategy(PaymentModes.Crypto);
-        paymentProcessor.makePayment();
-
-        // Cash payment
-        paymentProcessor.setPaymentStrategy(PaymentModes.Cash);
-        paymentProcessor.makePayment();
-
-        // Cash payment
-        paymentProcessor.setPaymentStrategy(PaymentModes.Paypal);
-        paymentProcessor.makePayment();
+        AnalyticsTool analyticsTool = new XMLtoJsonAdapter(xmlData);
+        analyticsTool.analyseData();
     }
 }
