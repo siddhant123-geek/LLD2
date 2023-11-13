@@ -1,4 +1,5 @@
 import CommandDesignPattern.*;
+import DecoratorDesignPattern.*;
 import ObjectAdapterDesignPattern.AnalyticsTool;
 import ObjectAdapterDesignPattern.JsonAnalyticsTool;
 import ObjectAdapterDesignPattern.XMLtoJsonAdapter;
@@ -13,15 +14,20 @@ import StrategyPlusFactorDesignPattern.PaymentProcessor;
 public class Main {
     public static void main(String[] args) {
 
-        String xmlData = "data";
-        // Without the adapter
-        JsonAnalyticsTool jsonAnalyticsTool = new JsonAnalyticsTool();
-        jsonAnalyticsTool.setJsonData(xmlData);
-        jsonAnalyticsTool.analyse();
+        FoodItem pizzaOrder = new Pizza();
+        FoodItem burgerOrder = new Burger();
 
-        System.out.println("-------------------------------------------");
+        pizzaOrder = new CheeseDecorator(pizzaOrder, 20.0);
+        pizzaOrder = new ToppingsDecorator(pizzaOrder, 30);
 
-        AnalyticsTool analyticsTool = new XMLtoJsonAdapter(xmlData);
-        analyticsTool.analyseData();
+        burgerOrder = new ToppingsDecorator(burgerOrder, 30);
+        burgerOrder = new CheeseDecorator(burgerOrder, 15);
+
+        System.out.println("Description of Pizza order " + pizzaOrder.getDescription());
+        System.out.println("Price of Pizza order " + pizzaOrder.getPrice());
+
+
+        System.out.println("Description of Burger order " + burgerOrder.getDescription());
+        System.out.println("Price of Burger order " + burgerOrder.getPrice());
     }
 }
