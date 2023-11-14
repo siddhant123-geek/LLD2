@@ -1,4 +1,7 @@
 import CommandDesignPattern.*;
+import CompositeDesignPattern.Department;
+import CompositeDesignPattern.Employee;
+import CompositeDesignPattern.EmployeeComponent;
 import DecoratorDesignPattern.*;
 import ObjectAdapterDesignPattern.AnalyticsTool;
 import ObjectAdapterDesignPattern.JsonAnalyticsTool;
@@ -14,20 +17,20 @@ import StrategyPlusFactorDesignPattern.PaymentProcessor;
 public class Main {
     public static void main(String[] args) {
 
-        FoodItem pizzaOrder = new Pizza();
-        FoodItem burgerOrder = new Burger();
+        EmployeeComponent emp1 = new Employee("Sid", 1000.0);
+        EmployeeComponent emp2 = new Employee("Kat", 700.0);
 
-        pizzaOrder = new CheeseDecorator(pizzaOrder, 20.0);
-        pizzaOrder = new ToppingsDecorator(pizzaOrder, 30);
+        Department depart = new Department("CP");
+        depart.addMembers(emp1);
+        depart.addMembers(emp2);
 
-        burgerOrder = new ToppingsDecorator(burgerOrder, 30);
-        burgerOrder = new CheeseDecorator(burgerOrder, 15);
+        emp1.displayInfo();
+        System.out.println(emp1.getSalary());
 
-        System.out.println("Description of Pizza order " + pizzaOrder.getDescription());
-        System.out.println("Price of Pizza order " + pizzaOrder.getPrice());
+        emp2.displayInfo();
+        System.out.println(emp2.getSalary());
 
-
-        System.out.println("Description of Burger order " + burgerOrder.getDescription());
-        System.out.println("Price of Burger order " + burgerOrder.getPrice());
+        depart.displayInfo();
+        System.out.println("In total then earn: " + depart.getSalary());
     }
 }
