@@ -10,6 +10,8 @@ import ObserverDesign.Customer;
 import ObserverDesign.DeliveryPartner;
 import ObserverDesign.Observer;
 import ObserverDesign.Order;
+import ProxyDesignPattern.Image;
+import ProxyDesignPattern.ProxyImage;
 import Singleton.NetworkManager;
 import StrategyPlusFactorDesignPattern.PaymentModes;
 import StrategyPlusFactorDesignPattern.PaymentProcessor;
@@ -17,20 +19,10 @@ import StrategyPlusFactorDesignPattern.PaymentProcessor;
 public class Main {
     public static void main(String[] args) {
 
-        EmployeeComponent emp1 = new Employee("Sid", 1000.0);
-        EmployeeComponent emp2 = new Employee("Kat", 700.0);
+        Image proxy = new ProxyImage("sample_image");
 
-        Department depart = new Department("CP");
-        depart.addMembers(emp1);
-        depart.addMembers(emp2);
+        proxy.display();
 
-        emp1.displayInfo();
-        System.out.println(emp1.getSalary());
-
-        emp2.displayInfo();
-        System.out.println(emp2.getSalary());
-
-        depart.displayInfo();
-        System.out.println("In total then earn: " + depart.getSalary());
+        proxy.display();
     }
 }
