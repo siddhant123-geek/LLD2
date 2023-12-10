@@ -1,39 +1,44 @@
-import Calculator.Calculator;
-import CommandDesignPattern.*;
-import CompositeDesignPattern.Department;
-import CompositeDesignPattern.Employee;
-import CompositeDesignPattern.EmployeeComponent;
-import DecoratorDesignPattern.*;
-import ObjectAdapterDesignPattern.AnalyticsTool;
-import ObjectAdapterDesignPattern.JsonAnalyticsTool;
-import ObjectAdapterDesignPattern.XMLtoJsonAdapter;
-import ObserverDesign.Customer;
-import ObserverDesign.DeliveryPartner;
-import ObserverDesign.Observer;
-import ObserverDesign.Order;
-import ProxyDesignPattern.Image;
-import ProxyDesignPattern.ProxyImage;
-import Singleton.NetworkManager;
-import StrategyPlusFactorDesignPattern.PaymentModes;
-import StrategyPlusFactorDesignPattern.PaymentProcessor;
 
+import ForDemo.Comparator;
+import ForDemo.Employee;
+import ObserverDesignPattern.Customer;
+import ObserverDesignPattern.DeliveryPartner;
+import ObserverDesignPattern.Order;
+import ProtoTypeDesignPattern.Project;
+import ProtoTypeDesignPattern.ProjectProtoType;
+import SingletonDesignPattern.PaymentGatewayManager;
+
+import java.awt.*;
+import java.lang.reflect.Field;
 import java.security.Timestamp;
+import java.util.ArrayList;
 import java.util.Timer;
-import Calculator.ScientificCalculator;
-import Calculator.CalculatorFactory;
-import Calculator.CalculatorType;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        CalculatorFactory calculatorFactory = new CalculatorFactory();
-        Calculator calculator1 = calculatorFactory.getCalculator(CalculatorType.NORMAL);
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
+////        Project p1 = new Project("Sample Project", 2);
+////        p1.display();
+////
+////        ProjectProtoType p2 = p1.clone();
+////        p2.display();
+//
+//        PaymentGatewayManager p1 = PaymentGatewayManager.getInstance();
+//
+//        PaymentGatewayManager p2 = PaymentGatewayManager.getInstance();
+//
+//        System.out.println(p1.equals(p2));
 
-        System.out.println(calculator1.add(2, 3));
-        System.out.println(calculator1.sub(5, 2));
+        Order o = new Order();
+        Customer c = new Customer("Sid");
+        DeliveryPartner dp = new DeliveryPartner("P");
 
-        Calculator calculator2 = calculatorFactory.getCalculator(CalculatorType.SCIENTIFIC);
-        System.out.println(calculator2.add(2, 3));
-        System.out.println(calculator2.sub(5, 2));
-        System.out.println(((ScientificCalculator) calculator2).modulo(3, 5));
+        o.attachObserver(c);
+        o.attachObserver(dp);
+        o.setStatus("Order assigned");
+
+        o.detachObserver(dp);
+        o.setStatus("Delivered");
     }
 }
